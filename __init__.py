@@ -5,29 +5,45 @@ from keybinds import EInputEvent
 from unrealsdk.unreal import BoundFunction, UObject, WrappedStruct
 
 be_shooting = False
+be_interacting = False
 
-@keybind(identifier="Free-Scroll Fire",
-         key= "Eight",
-         event_filter=EInputEvent.IE_Pressed)
+@keybind(identifier="Free-Scroll Fire: On Press",
+         key="Eight",
+         event_filter=EInputEvent.IE_Pressed,
+        )
 def fire_keybind_pressed() -> None:
+    '''Triggered when the key is pressed down. Sets a global variable to indicate that spam shooting should be attempted.'''
     global be_shooting
     be_shooting = True
 
-@keybind(identifier="Free-Scroll Fire",
-         key= "Eight",
-         event_filter=EInputEvent.IE_Released)
+@keybind(identifier="Free-Scroll Fire: On Release",
+         key="Eight",
+         event_filter=EInputEvent.IE_Released,
+        )
 def fire_keybind_released() -> None:
+    '''Triggered when the key is released. Sets a global variable to indicate that spam shooting should not occur.'''
     global be_shooting
     be_shooting = False
 
-@keybind("Free-Scroll Interact", "Nine")
-def fs_interact() -> None:
-    pc = get_pc()
-    if not pc:
-        return
 
-    for i in range(20):
-        pc.Use()
+@keybind(identifier="Free-Scroll Interact: On Press", 
+         key="Nine",
+         event_filter=EInputEvent.IE_Pressed,
+        )
+def interact_keybind_pressed() -> None:
+    '''Triggered when the key is pressed down. Sets a global variable to indicate that spam interact should be attempted.'''
+    global be_interacting
+    be_interacting = True
+
+@keybind(identifier="Free-Scroll Interact: On Release", 
+         key="Nine",
+         event_filter=EInputEvent.IE_Released,
+        )
+def interact_keybind_released() -> None:
+    '''Triggered when the key is released. Sets a global variable to indicate that spam interacting should not occur.'''
+    global be_interacting
+    be_interacting = False
+
 
 @hook("WillowGame.WillowPlayerController:PlayerWalking.PlayerMove")
 def actor_tick(
@@ -36,22 +52,27 @@ def actor_tick(
     _ret: Any,
     _func: BoundFunction
 ) -> None:
+    '''Hooked into the PlayerMove function such that it should be executed every frame that could have player movement, should translate pretty well to when the player can be doing things.'''
+    pc = get_pc()
+    if not pc:
+        return
+    
     if be_shooting:
-        pc = get_pc()
-        if not pc:
-            return
-
         pc.StartFire()
         pc.StopFire()
+
+    if be_interacting:
+        pc.Use()
 
 build_mod(
     name="Free-Scroll Keybinds",
     author="piikyu",
     description="Set keybinds to spam inputs!",
-    version="0.3",
+    version="0.4",
     keybinds=[
         fire_keybind_pressed,
         fire_keybind_released,
-        fs_interact,
+        interact_keybind_pressed,
+        interact_keybind_released
     ],
 )
