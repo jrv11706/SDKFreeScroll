@@ -19,7 +19,6 @@ def fire_keybind_pressed() -> None:
 def fire_keybind_released() -> None:
     global be_shooting
     be_shooting = False
-    print(fire_keybind_released.key)
 
 @keybind("Free-Scroll Interact", "Nine")
 def fs_interact() -> None:
@@ -30,14 +29,13 @@ def fs_interact() -> None:
     for i in range(20):
         pc.Use()
 
-@hook("Engine.Actor:Tick")
+@hook("WillowGame.WillowPlayerController:PlayerWalking.PlayerMove")
 def actor_tick(
     obj: UObject,
     args: WrappedStruct,
     _ret: Any,
     _func: BoundFunction
 ) -> None:
-
     if be_shooting:
         pc = get_pc()
         if not pc:
@@ -50,7 +48,7 @@ build_mod(
     name="Free-Scroll Keybinds",
     author="piikyu",
     description="Set keybinds to spam inputs!",
-    version="0.2",
+    version="0.3",
     keybinds=[
         fire_keybind_pressed,
         fire_keybind_released,
