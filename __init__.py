@@ -53,9 +53,16 @@ def actor_tick(
     _func: BoundFunction
 ) -> None:
     '''Hooked into the PlayerTick function such that it should be executed every frame that the player exists, should translate pretty well to when the player can be doing things.'''    
+    global be_interacting, be_shooting
+    
     pc = get_pc()
     if not pc:
         return
+
+
+    if pc.bIsShopping:
+        be_interacting = False
+
     
     if be_shooting:
         pc.StartFire()
