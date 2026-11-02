@@ -45,14 +45,14 @@ def interact_keybind_released() -> None:
     be_interacting = False
 
 
-@hook("WillowGame.WillowPlayerController:PlayerWalking.PlayerMove")
+@hook("WillowGame.WillowPlayerController:PlayerTick")
 def actor_tick(
     obj: UObject,
     args: WrappedStruct,
     _ret: Any,
     _func: BoundFunction
 ) -> None:
-    '''Hooked into the PlayerMove function such that it should be executed every frame that could have player movement, should translate pretty well to when the player can be doing things.'''
+    '''Hooked into the PlayerTick function such that it should be executed every frame that the player exists, should translate pretty well to when the player can be doing things.'''    
     pc = get_pc()
     if not pc:
         return
@@ -63,6 +63,7 @@ def actor_tick(
 
     if be_interacting:
         pc.Use()
+        pc.PickupSomething(0)
 
 build_mod(
     name="Free-Scroll Keybinds",
