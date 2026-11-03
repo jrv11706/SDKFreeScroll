@@ -58,11 +58,24 @@ def actor_tick(
     pc = get_pc()
     if not pc:
         return
+    if not pc.Pawn:
+        return
 
-
-    if pc.bIsShopping:
+    if pc.Pawn.bViewingThirdPersonMenu:
+        # Solves most cases of being stuck entering menus
         be_interacting = False
 
+    if pc.Pawn.IsInjured():
+        # Prevents picking up while in FFYL
+        be_interacting = False
+
+    if pc.Pawn.bInjuredDeadCameraActive:
+        # Prevents shooting while dying (ragdoll)
+        return
+
+    if pc.Pawn.IsInjured() and not pc.Pawn.bInjuredIsCameraAnimPlaying:
+        # Prevents shooting while transitioning into FFYL
+        return
     
     if be_shooting:
         pc.StartFire()
