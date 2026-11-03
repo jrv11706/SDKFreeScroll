@@ -61,13 +61,16 @@ def actor_tick(
     if not pc.Pawn:
         return
 
+
     if pc.Pawn.bViewingThirdPersonMenu:
         # Solves most cases of being stuck entering menus
         be_interacting = False
+        be_shooting = False
 
     if pc.Pawn.IsInjured():
         # Prevents picking up while in FFYL
         be_interacting = False
+
 
     if pc.Pawn.bInjuredDeadCameraActive:
         # Prevents shooting while dying (ragdoll)
@@ -76,6 +79,7 @@ def actor_tick(
     if pc.Pawn.IsInjured() and not pc.Pawn.bInjuredIsCameraAnimPlaying:
         # Prevents shooting while transitioning into FFYL
         return
+
     
     if be_shooting:
         pc.StartFire()
