@@ -62,8 +62,8 @@ def actor_tick(
         return
 
 
-    if pc.Pawn.bViewingThirdPersonMenu:
-        # Solves most cases of being stuck entering menus
+    if pc.PlayerReplicationInfo.bGFxMenuOpen > 0:
+        # Solves most (all?) cases of being stuck entering menus
         be_interacting = False
         be_shooting = False
 
