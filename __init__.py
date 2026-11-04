@@ -93,7 +93,7 @@ build_mod(
     name="Free-Scroll Keybinds",
     author="piikyu",
     description="Set keybinds to spam inputs!",
-    version="0.4",
+    version="0.6",
     keybinds=[
         fire_keybind_pressed,
         fire_keybind_released,
