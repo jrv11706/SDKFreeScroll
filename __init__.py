@@ -45,7 +45,7 @@ def interact_keybind_released() -> None:
     be_interacting = False
 
 
-@hook("WillowGame.WillowPlayerController:PlayerTick")
+@hook("Engine.Interaction:Tick")
 def actor_tick(
     obj: UObject,
     args: WrappedStruct,
