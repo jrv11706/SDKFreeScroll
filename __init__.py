@@ -52,7 +52,7 @@ def actor_tick(
     _ret: Any,
     _func: BoundFunction
 ) -> None:
-    '''Hooked into the PlayerTick function such that it should be executed every frame that the player exists, should translate pretty well to when the player can be doing things.'''    
+    '''Hooked into the Interaction:Tick function such that it should be executed every frame that the player can interact, should translate pretty well to when the player can be doing things.'''    
     global be_interacting, be_shooting
     
     pc = get_pc()
@@ -93,7 +93,7 @@ build_mod(
     name="Free-Scroll Keybinds",
     author="piikyu",
     description="Set keybinds to spam inputs!",
-    version="0.6",
+    version="1.0",
     keybinds=[
         fire_keybind_pressed,
         fire_keybind_released,

@@ -1,0 +1,14 @@
+[project]
+name = "Free-Scroll Keybinds"
+version = "1.0"
+authors = [{ name = "piikyu" }]
+description = """\
+Set keybinds to spam inputs!
+Note that there are keybinds for both pressing and releasing each keybind. Set these to the same button to have a "Press & Hold" functionality.
+"""
+
+[tool.sdkmod]
+name = "Free-Scroll Keybinds"
+license = {name = "GPL3", url = "https://choosealicense.com/licenses/gpl-3.0/" }
+download = ""
+version = "1"
