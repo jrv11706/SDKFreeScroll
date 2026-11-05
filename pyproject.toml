@@ -10,5 +10,5 @@ Note that there are keybinds for both pressing and releasing each keybind. Set t
 [tool.sdkmod]
 name = "Free-Scroll Keybinds"
 license = {name = "GPL3", url = "https://choosealicense.com/licenses/gpl-3.0/" }
-download = "https://github.com/jrv11706/SDKFreeScroll/releases/download/v1.0/Free-Scroll.Keybinds.sdkmod"
+download = "https://github.com/jrv11706/free-scroll-keybinds/releases/download/v1.0/free_scroll_keybinds.sdkmod"
 version = "1"
